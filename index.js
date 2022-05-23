@@ -66,3 +66,33 @@ function menuPrompt() {
         }
     })
 }
+
+// if user selects view departments
+function viewDepartments() {
+    connect.query("SELECT * FROM department", 
+    function(err, res) {
+      if (err) throw err
+      console.table(res)
+      menuPrompt()
+    })
+  }
+
+// if user selects view employees
+function viewEmployees() {
+    connect.query("SELECT * FROM employee", 
+    function(err, res) {
+      if (err) throw err
+      console.table(res)
+      menuPrompt()
+  })
+}
+
+// if user selects view roles
+function viewRoles() {
+    connect.query("SELECT * FROM role",
+    function(err, res) {
+        if (err) throw err
+        console.table(res)
+        menuPrompt()
+    })
+}
