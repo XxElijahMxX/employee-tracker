@@ -191,15 +191,15 @@ function addEmployee() {
 
 //if user selects update employee
 function updateEmployeeRole() {
-    connect.query("SELECT * FROM employee",
+    connect.query("SELECT employee.last_name, role.title FROM employee JOIN role ON employee.role_id = role.id;",
         function (err, res) {
             if (err) throw err
             console.log(res)
             inquirer.prompt([
                 {
-                    name: 'lastName',
+                    name: 'last_Name',
                     type: 'list',
-                    choices: function () {
+                    choices: function() {
                         let lastName = [];
                         for (var i = 0; i < res.length; i++) {
                             lastName.push(res[i].last_name);
@@ -214,26 +214,22 @@ function updateEmployeeRole() {
                     message: "What is your employee's new role?",
                     choices: chooseRole()
                 },
-            ]).then(function (select) {
+            ]).then(function(select) {
                 let roleId = chooseRole().indexOf(select.role) + 1
                 connect.query("UPDATE employee SET WHERE ?",
                     {
-                        last_name: select.lastName
-
+                        last_name: select.last_Name
                     },
                     {
                         role_id: roleId
-
                     },
-                    function (err) {
+                    function(err){
                         if (err) throw err
                         console.table(select)
                         menuPrompt()
-                    })
-
+                    });
             });
         });
-
 }
 
 // if user selects add new role
